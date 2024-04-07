@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            color: #333;
+        }
+
+        h1, h2, h3, p, ul, ol {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-size: 28px;
+            color: #000;
+
+        }
+
+        h2 {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-size: 24px;
+            color: #333;
+        }
+
+        h3 {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-size: 20px;
+            color: #444;
+        }
+
+        p, ul, ol {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-size: 16px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px 0;
+        }
+
+        .feature {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Online Class: Fullstack SaaS Project</h1>
+</header>
+<section>
+    <h2>Project Overview</h2>
+    <p>
+        "The 'Online Class' project is a Fullstack Software as a Service (SaaS) application,
+        focusing on leveraging artificial intelligence to enhance learning experiences.
+    </p>
+    <p>
+        Initiated in November 2023, this project aims to create an intuitive platform where
+        users can interact with AI by simply pressing a button. Students can generate questionnaires
+        about video classes and also create summaries. Furthermore, this SaaS provides a robust
+        platform for study organization and note-saving. In this article, I will approach, explain, and showcase
+        some of the features of this SaaS MVP"
+    </p>
+</section>
+<section>
+    <h2>Short Technical Highlights</h2>
+    <p>
+        I used the OpenAI API and learned about all its usage from the current documentation available on the OpenAI website.
+        The costs in the development environment are basically zero, all users receive a 5-dollar credit to use the API.
+        If you are not making calls to the most advanced model, which is GPT-4, this credit will be more than enough."
+    </p>
+    <p>
+        The cost per 1 million tokens for the model 'gpt-3.5-turbo-0125' is significantly lower than that of GPT-4, and it served me very well.
+
+        According to the OpenAI documentation (april, 2024), the costs per 1 million  tokens are:
+    <ul>
+        <li>gpt-3.5-turbo-0125: 0.50 dollars</li>
+        <li>GPT-4: 10 dollars</li>
+    </ul>
+    </p>
+</section>
+<hr>
+<section>
+    <h2>User Stories</h2>
+    <div class="feature">
+        <h3>Input a Video</h3>
+        <p>
+            This feature allows users to integrate YouTube video content directly into the platform for a
+            seamless learning experience. To use this functionality,
+            simply copy and paste the link of a YouTube video into the provided form.
+            Once a video is submitted, it will be embedded within the application.
+        </p>
+        <fieldset>
+            <img src="/AulaOnlineImages/input.png" alt="Input image">
+        </fieldset>
+    </div>
+    <div class="feature">
+        <h3>Video Player</h3>
+        <p>
+            Following the video input, we have a player with integrated note-taking capabilities.
+            Adjacent to the player, a notepad is provided, allowing users to
+            write key points, thoughts, and observations while watching the video.
+            This setup ensures that users can easily record insights without navigating away from the video content,
+            providing a better workflow for the student.
+        </p>
+        <p>
+            As you can see in the image, it's a pretty complete notepad. You can switch between H1, H2, H3, H4; you can add
+            bullet lists, unordered lists, links, and more.
+        </p>
+        <fieldset>
+            <img src="/AulaOnlineImages/player.png" alt="Video player image">
+        </fieldset>
+    </div>
+    <div class="feature">
+        <h3>Generative Features</h3>
+        <p>
+            As you can see, we have two buttons that initiate the generative process.
+            The green button generates a five-question questionnaire about the video, prompting users
+            to deeply engrain the content in their minds.
+        </p>
+        <p>
+            The blue button produces a summary of the video content, offering a concise overview
+            and aiding in comprehension.
+        </p>
+        <p>
+            These functionalities are powered by highly detailed calls
+            to the OpenAI API. I developed a robust structure of prompts to ensure
+            that the generated content is relevant and accurate.
+        </p>
+        <p>
+            In another article, I will do a better approach about how to
+            create effective prompts, showing examples of my own.
+        </p>
+        <p>
+            The questionnaire is designed to challenge the user's understanding of the video,
+            while the summary provides key insights that users can remember for a while afterward.
+            The key point of these buttons is to offer detailed engineering with an intuitive UI.
+        </p>
+        <fieldset>
+            <img src="/AulaOnlineImages/AIButtons.png" alt="Generative buttons on the video player">
+        </fieldset>
+    </div>
+</section>
+<hr>
+<div class="feature">
+    <h3>Generate Summary Feature</h3>
+    <p>
+        I will reserve in-depth explanations about prompts for another article,
+        as this topic merits its own comprehensive discussion. However, the
+        'Generate Summary' feature is simpler than the questionnaire generation feature.
+    </p>
+    <p>
+        You only need to extract the video's prompt (using an external API) and then, after several validations,
+        pass the transcript to the GPT API with specific rules for the prompt.
+        Additionally, we need to define parameters such as the response's temperature, maximum token usage per operation, and other considerations.
+    </p>
+    <p>
+        As an example, we will use a video related to World War 2, a topic that many people have good knowledge of. I assume you have
+        basic knowledge of the topic from which the AI will generate the summary. This way, you can check if the summary makes sense to you. Let's test it out!
+    </p>
+    <p>
+        We will test with this video: "World War Two Explained: The Key Battles and Dates" from channel History Hit
+    </p>
+    <fieldset>
+        <img src="/AulaOnlineImages/summaryExample.png" alt="summary response example">
+    </fieldset>
+    <p>
+        As you can see it's a pretty good summary, that summarize the video well, and avoided from noises, as not sponsor about the channel, or presenting of the host, just straight up
+        in the content bringing really valuable info.
+    </p>
+    <hr>
+</div>
+<div class="feature">
+    <h3>Generate Questionnaire Feature</h3>
+    <p>
+        Using the same logic of extracting the transcript and preparing a
+        prompt with well-defined rules, we can delve into the questionnaire feature.
+        This was more challenging to construct because we are dealing with generative AI,
+        meaning the AI can produce quite varied response formats. We need a highly defined
+        structure to distribute for each question label. Afterwards, we need to assess the
+        answers to inform the user how many questions they answered correctly, requiring
+        careful handling of a lot of information.
+    </p>
+    <fieldset>
+        <video width="100%" height="100%" controls>
+            <source src="/AulaOnlineImages/video.mov" type="video/mp4">
+        </video>
+    </fieldset>
+    <p>
+        The questions generated are straightforward. I used a low-temperature setting to avoid formatting issues.
+    </p>
+    <ul>
+        <li><strong style="color: lightgreen">Pros:</strong></li>
+        <li>Almost 100% of the questionnaires are well-generated.</li>
+        <li>Very concise approach to the content.</li>
+    </ul>
+    <ul>
+        <li><strong style="color: firebrick">Cons:</strong></li>
+        <li>Questions may not deeply challenge the user; they are very concise, meaning the user either knows the answer or does not.</li>
+    </ul>
+    <hr>
+</div>
+
+<section>
+    <h2>Architecture</h2>
+    <p>
+        The backend architecture adheres to the Model-View-Controller (MVC) design pattern,
+        applying SOLID principles to ensure maintainable, and scalable code. TypeORM was used for
+        database manipulation, further fortifying the application’s backend foundation.
+    </p>
+    <hr>
+</section>
+<section>
+    <h2>AI integration pattern</h2>
+    <p>
+         All the AI integrations were in the backend. Personally, I highly recommend this approach, basically just one of my API routes are able to access the OPEN AI API with my OPEN AI API KEY,
+        (each call coast some cents), so it's crucial to have a high control of these requisitions.
+    </p>
+</section>
+<section>
+    <h2>Technologies Used</h2>
+    <ul>
+        <li>TypeScript</li>
+        <li>Express.js for building the RESTful API</li>
+        <li>Node.js as the runtime environment</li>
+        <li>OpenAI API for integrating AI capabilities</li>
+        <li>TypeORM for database management</li>
+        <li>Jest for conducting unit and integration testing</li>
+    </ul>
+</section>
+</body>
+</html>
