@@ -49,51 +49,64 @@ function ProfileInfo() {
         </fieldset>
       </Grid>
       <Grid item md={3} xs={10} sx={{ pl: isSmallScreen ? "20px" : "0px" }}>
-        <fieldset>
-          <legend className="bold-legend">Backend Developer</legend>
-          <p>
-            <strong>Name: </strong> Filipe Raposo
-          </p>
-          <p>
-            <strong>Contact me: </strong>
-          </p>
-          <div style={{ color: "#010081", marginBottom: "10px" }}>
-            <a
-              href="https://www.linkedin.com/in/filipe-raposo-a28735256/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Linkedln
-            </a>
-          </div>
-          <div style={{ color: "#010081", marginBottom: "10px" }}>
-            <a
-              href="mailto:contact.filipemr@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              contact.filipemr@gmail.com
-            </a>
-          </div>
-        </fieldset>
+          <fieldset>
+              <legend className="bold-legend">Backend Developer</legend>
+              <p>
+                  <strong>Name: </strong> Filipe Raposo
+              </p>
+              <p>
+                  <strong>Contact me: </strong>
+              </p>
+              <div style={{color: "#010081", marginBottom: "10px"}}>
+                  <a
+                      href="https://www.linkedin.com/in/filipe-raposo-a28735256/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                  >
+                      Linkedln
+                  </a>
+              </div>
+              <div style={{color: "#010081", marginBottom: "10px"}}>
+                  <a
+                      href="mailto:contact.filipemr@gmail.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                  >
+                      contact.filipemr@gmail.com
+                  </a>
+              </div>
+              <p>
+                  <strong>Projects: </strong>
+              </p>
+              <div style={{color: "#010081", marginBottom: "10px"}}>
+                  <a
+                      href="https://github.com/Filipemrr"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                  >
+                      Github
+                  </a>
+              </div>
+          </fieldset>
       </Grid>
     </Grid>
   );
 }
+
 function AboutMe() {
-  const isSmallScreen = useMediaQuery("(min-width: 700px)");
-  const lines = aboutMeEn.split("\n").map((line, index) => (
-    <p
-      key={index}
-      style={{
-        fontWeight: "light",
-        fontFamily: "'MS Sans Serif', 'Arial', sans-serif",
-      }}
-    >
-      {line}
-    </p>
-  ));
-  return (
+    const isSmallScreen = useMediaQuery("(min-width: 700px)");
+    const lines = aboutMeEn.split("\n").map((line, index) => (
+        <p
+            key={index}
+            style={{
+                fontWeight: "light",
+                fontFamily: "'MS Sans Serif', 'Arial', sans-serif",
+            }}
+        >
+            {line}
+        </p>
+    ));
+    return (
     <Grid
       item
       md={7}
