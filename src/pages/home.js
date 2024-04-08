@@ -15,7 +15,7 @@ const projects = [
 ];
 
 function ProfileInfo() {
-    const isSmallScreen = useMediaQuery('(min-width: 700px)');
+    const isSmallScreen = useMediaQuery('(min-width: 1200px)');
     return(
 
         <Grid item md={3.5} xs={12}className="window-body" sx={{height: '25vh',pl: isSmallScreen ? '0': '9%'}}>
@@ -44,7 +44,7 @@ function ProfileInfo() {
     )
 }
 function AboutMe() {
-    const isSmallScreen = useMediaQuery('(min-width: 700px)');
+    const isSmallScreen = useMediaQuery('(min-width: 1200px)');
     const lines = aboutMeEn.split('\n').map((line, index) => (
         <p key={index} style={{ fontWeight: 'light', fontFamily: "'MS Sans Serif', 'Arial', sans-serif" }}>{line}</p>
     ));
@@ -98,9 +98,9 @@ function NavBar() {
 }
 
 function AboutMeView() {
-    const isSmallScreen = useMediaQuery('(min-width: 700px)');
+    const isSmallScreen = useMediaQuery('(min-width: 1200px)');
     return (
-        <Grid item md={7} display={'flex'} alignItems={'center'} justifyContent={'center'} sx={{width: '100%', height: '70vh', mt: isSmallScreen ? '0' : '25%'}}>
+        <Grid item md={7} display={'flex'} alignItems={'center'} justifyContent={'center'} sx={{width: '100%', height: '70vh', mt: isSmallScreen ? '0' : '40%'}}>
             <Grid item className="window"  sx={{width: isSmallScreen ? '100%': '75%', height: '100%', overflowX: 'scroll'}}>
                 <Grid item md={12} className="title-bar" sx={{
                     position: 'sticky',
