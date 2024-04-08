@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import "98.css";
-import {Grid} from "@mui/material";
+import {Grid, useMediaQuery} from "@mui/material";
 import {aboutMeEn} from "./data";
 import './style.css';
 import profilePic from './img.png';
@@ -15,15 +15,17 @@ const projects = [
 ];
 
 function ProfileInfo() {
+    const isSmallScreen = useMediaQuery('(min-width: 700px)');
     return(
-        <Grid item md={3.5} className="window-body" sx={{height: '25vh'}}>
+
+        <Grid item md={3.5} xs={12}className="window-body" sx={{height: '25vh',pl: isSmallScreen ? '0': '9%'}}>
             <Grid item md={12} sx={{height: '20vh', padding: '20px'}}>
                 <fieldset className="fieldSet-profilePic">
                     <img src={profilePic} alt="Profile Pic"
                          style={{width: '100%', height: '100%', display: 'block'}}/>
                 </fieldset>
             </Grid>
-            <Grid item md={3} sx={{pl: '20px'}}>
+            <Grid item md={3} xs={10} sx={{pl: isSmallScreen ? '20px' : '0px'}}>
                 <fieldset>
                     <legend className="bold-legend">Backend Developer</legend>
                     <p><strong>Name: </strong> Filipe Raposo</p>
@@ -42,15 +44,20 @@ function ProfileInfo() {
     )
 }
 function AboutMe() {
+    const isSmallScreen = useMediaQuery('(min-width: 700px)');
     const lines = aboutMeEn.split('\n').map((line, index) => (
         <p key={index} style={{ fontWeight: 'light', fontFamily: "'MS Sans Serif', 'Arial', sans-serif" }}>{line}</p>
     ));
     return (
-        <Grid item md={7} sx={{ paddingTop: '25px' }}>
+        <Grid item md={7} sx={{ display: 'flex', alignItems:'center', justifyContent:'center', paddingTop: isSmallScreen ? '25px' : '40%', paddingBottom:'20px'}}>
             <fieldset className="aboutMe-fieldSet" style={{
                 fontSize: '18px',
                 overflowY: 'scroll',
-                maxHeight: '400px'
+                maxHeight: '500px',
+                maxWidth: isSmallScreen ? '100%' : '75%',
+                textAlign: 'left',  // Garante alinhamento à esquerda do texto
+                margin: '0 auto',  // Centraliza o fieldset mas não o texto
+                padding: '2px 15px'  // Adiciona um pouco de padding nos lados
             }}>
                 <legend className="bold-legend">About Me</legend>
                 {lines}
@@ -62,19 +69,19 @@ function AboutMe() {
 function LatestBlogPosts (){
     return(
         <Grid item md={7} className="window-body">
-        <Grid item md={5} sx={{height: '25vh', pl: '20px'}}>
-            <fieldset>
-                <legend className="bold-legend">Latest Posts</legend>
-                {projects.map((project) => (
-                    <Grid item key={project.id} sx={{width: '100%', height: '70%'}}>
-                        <div style={{color: '#010081', marginBottom: '10px'}}>
-                            <a href="" target="_blank"
-                               rel="noopener noreferrer">{project.articleTitle}</a>
-                        </div>
-                    </Grid>
-                ))}
-            </fieldset>
-        </Grid>
+            <Grid item md={5} sx={{height: '25vh', pl: '20px'}}>
+                <fieldset>
+                    <legend className="bold-legend">Latest Posts</legend>
+                    {projects.map((project) => (
+                        <Grid item key={project.id} sx={{width: '100%', height: '70%'}}>
+                            <div style={{color: '#010081', marginBottom: '10px'}}>
+                                <a href="" target="_blank"
+                                   rel="noopener noreferrer">{project.articleTitle}</a>
+                            </div>
+                        </Grid>
+                    ))}
+                </fieldset>
+            </Grid>
         </Grid>)
 }
 
@@ -91,10 +98,17 @@ function NavBar() {
 }
 
 function AboutMeView() {
+    const isSmallScreen = useMediaQuery('(min-width: 700px)');
     return (
-        <Grid item md={7} sx={{width: '100%', height: '70vh'}}>
-            <Grid item className="window" sx={{width: '100%', height: '100%', overflowX: 'scroll'}}>
-                <NavBar/>
+        <Grid item md={7} display={'flex'} alignItems={'center'} justifyContent={'center'} sx={{width: '100%', height: '70vh', mt: isSmallScreen ? '0' : '25%'}}>
+            <Grid item className="window"  sx={{width: isSmallScreen ? '100%': '75%', height: '100%', overflowX: 'scroll'}}>
+                <Grid item md={12} className="title-bar" sx={{
+                    position: 'sticky',
+                    top: -3,
+                    zIndex: 0
+                }}>
+                    <NavBar/>
+                </Grid>
                 <Grid container className={"content"}>
                     <ProfileInfo/>
                     <AboutMe/>
@@ -202,9 +216,9 @@ function FakeDesktopBg() {
 
 function Home() {
     return (
-            <FakeDesktopBg>
-                <Footer/>
-            </FakeDesktopBg>
+        <FakeDesktopBg>
+            <Footer/>
+        </FakeDesktopBg>
     );
 }
 
