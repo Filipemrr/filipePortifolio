@@ -1,82 +1,111 @@
-import React, {useEffect, useRef, useState} from "react";
-import {Grid} from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import { Grid, useMediaQuery } from "@mui/material";
 import NavBar from "./Navbar";
 
 export default function Modal({ isOpen, onClose, children, filePath }) {
-    const [content, setContent] = useState('')
-    const [isDragging, setIsDragging] = useState(false);
-    const [position, setPosition] = useState({ x: 150, y: 150 });
-    const modalRef = useRef(null);
-    const title = children
-    const handleMouseDown = (e) => {
-        setIsDragging(true);
-        modalRef.current.startX = e.clientX - modalRef.current.getBoundingClientRect().left;
-        modalRef.current.startY = e.clientY - modalRef.current.getBoundingClientRect().top;
-    };
+  const isSmallScreen = useMediaQuery("(min-width: 700px)");
+  const [content, setContent] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
+  const [position, setPosition] = useState({ x: 50, y: 50 });
 
-    const handleMouseMove = (e) => {
-        if (isDragging) {
-            const x = e.clientX - modalRef.current.startX;
-            const y = e.clientY - modalRef.current.startY;
-            setPosition({ x, y });
-        }
-    };
+  const modalRef = useRef(null);
+  const title = children;
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    modalRef.current.startX =
+      e.clientX - modalRef.current.getBoundingClientRect().left;
+    modalRef.current.startY =
+      e.clientY - modalRef.current.getBoundingClientRect().top;
+  };
 
-    const handleMouseUp = () => {
-        setIsDragging(false);
-    };
+  const handleMouseMove = (e) => {
+    if (isDragging) {
+      const x = e.clientX - modalRef.current.startX;
+      const y = e.clientY - modalRef.current.startY;
+      setPosition({ x, y });
+    }
+  };
 
-    useEffect(() => {
-        if (isOpen && filePath) {
-            fetch(`/Docs-en/${filePath}.html`)
-                .then(response => response.text())
-                .then(html => setContent(html))
-                .catch(error => console.error('Failed to load article:', error));
-        }
-    }, [isOpen, filePath]);
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
 
-    if (!isOpen) return null;
+  useEffect(() => {
+    if (isOpen && filePath) {
+      fetch(`/Docs-en/${filePath}.html`)
+        .then((response) => response.text())
+        .then((html) => setContent(html))
+        .catch((error) => console.error("Failed to load article:", error));
+    }
+  }, [isOpen, filePath]);
 
-    return (
-        <div style={{
-            position: 'fixed',
+  if (!isOpen) return null;
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+    >
+      <Grid
+        item
+        md={7}
+        sx={{
+          width: "100%",
+          height: isSmallScreen ? "75vh" : "100%",
+          overflow: "hidden",
+          position: "absolute",
+          top: isSmallScreen ? position.y + "px" : "0",
+          left: isSmallScreen ? position.x + "px" : "0",
+          zIndex: 1001,
+        }}
+        ref={modalRef}
+        onMouseDown={handleMouseDown}
+        className="window"
+      >
+        <Grid
+          item
+          md={12}
+          className="title-bar"
+          sx={{
+            position: "sticky",
             top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 1000
-        }} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
-            <Grid item md={7} sx={{
-                width: '100%',
-                height: '75vh',
-                overflow: 'hidden',
-                position: 'absolute',
-                top: position.y + 'px',
-                left: position.x + 'px',
-                zIndex: 1001
-            }} ref={modalRef} onMouseDown={handleMouseDown} className="window">
-                <Grid item md={12} className="title-bar" sx={{
-                    position: 'sticky',
-                    top: 0,
-                    zIndex: 10
-                }}>
-                    <div className="title-bar-text">Filipe Raposo - Article</div>
-                    <div className="title-bar-controls">
-                        <button aria-label="Minimize" onClick={onClose}></button>
-                        <button aria-label="Close" onClick={onClose}></button>
-                    </div>
-                </Grid>
-                <Grid container md={12} display={'flex'} alignItems={'center'} justifyContent={'center'} sx={{ overflow: 'auto', height: 'calc(100% - 32px)' }}>
-                    <Grid item md={10} sx={{ padding: '25px' }}>
-                        <div className="window-body" dangerouslySetInnerHTML={{ __html: content }}></div>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </div>
-    );
-
+            zIndex: 10,
+          }}
+        >
+          <div className="title-bar-text">Filipe Raposo - Article</div>
+          <div className="title-bar-controls">
+            <button aria-label="Minimize" onClick={onClose}></button>
+            <button aria-label="Close" onClick={onClose}></button>
+          </div>
+        </Grid>
+        <Grid
+          container
+          md={12}
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          sx={{ overflow: "auto", height: "calc(100% - 32px)" }}
+        >
+          <Grid item md={10} sx={{ padding: "25px" }}>
+            <div
+              className="window-body"
+              dangerouslySetInnerHTML={{ __html: content }}
+            ></div>
+          </Grid>
+        </Grid>
+      </Grid>
+    </div>
+  );
 }
