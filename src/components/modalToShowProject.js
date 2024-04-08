@@ -109,4 +109,3 @@ export default function Modal({ isOpen, onClose, children, filePath }) {
     </div>
   );
 }
-
