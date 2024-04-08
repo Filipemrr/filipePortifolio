@@ -32,7 +32,7 @@ function ProfileInfo() {
         md={12}
         xs={5}
         sx={{
-          height: "15vh",
+          height: isSmallScreen ? "20vh" : "15vh",
           padding: isSmallScreen ? "20px" : "20px 0px 20px 0px",
         }}
       >
@@ -348,4 +348,3 @@ function Home() {
 }
 
 export default Home;
-
