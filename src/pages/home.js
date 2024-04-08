@@ -27,12 +27,24 @@ function ProfileInfo() {
       className="window-body"
       sx={{ height: "25vh", pl: isSmallScreen ? "0" : "9%" }}
     >
-      <Grid item md={12} sx={{ height: "20vh", padding: "20px" }}>
+      <Grid
+        item
+        md={12}
+        xs={5}
+        sx={{
+          height: "15vh",
+          padding: isSmallScreen ? "20px" : "20px 0px 20px 0px",
+        }}
+      >
         <fieldset className="fieldSet-profilePic">
           <img
             src={profilePic}
             alt="Profile Pic"
-            style={{ width: "100%", height: "100%", display: "block" }}
+            style={{
+              width: isSmallScreen ? "100%" : "100%",
+              height: isSmallScreen ? "100%" : "100%",
+              display: "block",
+            }}
           />
         </fieldset>
       </Grid>
@@ -89,7 +101,7 @@ function AboutMe() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        paddingTop: isSmallScreen ? "25px" : "40%",
+        paddingTop: isSmallScreen ? "25px" : "25%",
         paddingBottom: "20px",
       }}
     >
@@ -100,9 +112,9 @@ function AboutMe() {
           overflowY: "scroll",
           maxHeight: "500px",
           maxWidth: isSmallScreen ? "100%" : "75%",
-          textAlign: "left", // Garante alinhamento à esquerda do texto
-          margin: "0 auto", // Centraliza o fieldset mas não o texto
-          padding: "2px 15px", // Adiciona um pouco de padding nos lados
+          textAlign: "left",
+          margin: "0 auto",
+          padding: "2px 15px",
         }}
       >
         <legend className="bold-legend">About Me</legend>
@@ -155,7 +167,7 @@ function AboutMeView() {
       display={"flex"}
       alignItems={"center"}
       justifyContent={"center"}
-      sx={{ width: "100%", height: "70vh", mt: isSmallScreen ? "0" : "25%" }}
+      sx={{ width: "100%", height: "70vh", mt: isSmallScreen ? "0" : "20%" }}
     >
       <Grid
         item
@@ -164,7 +176,7 @@ function AboutMeView() {
           width: isSmallScreen ? "100%" : "75%",
           height: "100%",
           overflowX: "scroll",
-          mt: isSmallScreen ? "0" : "15%",
+          mt: isSmallScreen ? "0" : "10%",
         }}
       >
         <Grid
@@ -336,3 +348,4 @@ function Home() {
 }
 
 export default Home;
+
