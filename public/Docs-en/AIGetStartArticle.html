@@ -1,32 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>ChatGPT Overview</title>
+    <style>
+        body {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            color: #333;
+        }
+
+        h1, h2, h3, h4, p, ul, ol {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-size: 28px;
+            color: #000;
+
+        }
+
+        h2 {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-size: 24px;
+            color: #333;
+        }
+
+        h3 {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-size: 20px;
+            color: #444;
+        }
+
+        p, ul, ol {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-size: 16px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px 0;
+        }
+
+        .feature {
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 <body>
-<h3>ChatGPT: A Revolutionary AI Language Model</h3>
-<p>
-    ChatGPT, developed by OpenAI, is a state-of-the-art language processing AI model
-    known for generating text that resembles human-like responses. It's built on the
-    GPT (Generative Pre-trained Transformer) architecture and has been trained on a
-    diverse range of internet text. ChatGPT can answer questions, write essays, summarize
-    documents, and even create conversational agents.
-</p>
-<p>
-    One of the key features of ChatGPT is its ability to understand and generate text
-    based on the context provided, making it extremely versatile for various applications,
-    from customer service chatbots to creative writing and technical assistance. Its
-    design allows it to generate coherent and contextually relevant text based on the
-    input it receives, demonstrating an understanding of language nuances, grammar, and
-    style.
-</p>
-<p>
-    The technology behind ChatGPT is part of a broader movement in AI research and
-    development, where the goal is to create systems that can interact with humans
-    in a natural and intuitive way. With its advanced capabilities, ChatGPT is at the
-    forefront of this movement, pushing the boundaries of what AI can achieve in
-    natural language understanding and generation.
-</p>
+<header>
+    <h1>Online Class: Fullstack SaaS Project</h1>
+</header>
+<section>
+    <h2>Tutorial Overview</h2>
+    <p>
+        This tutorial will teach you how to integrate your system with AI.
+    </p>
+    <p>
+        First things first, it's worth knowing that there are several ways
+        to integrate your application with AI, including the Gemini API, OPEN AI API, and others.
+        However, I highly recommend using the OPEN AI API because it has the best LLM on the market. Although the costs
+        are slightly higher than those of Gemini and others, evaluate the best option for you and get to work.
+    </p>
+</section>
+<section>
+    <h2>What is a Token?</h2>
+    <p>
+        Throughout this article, you will encounter the term 'Token', so it's crucial to understand what it means.
+        Essentially, a token represents the way we quantify our calls to the API;
+        for example, one request may cost 'x' tokens, and 'y' tokens might cost 0.50 dollars (depending on the model you are using),
+        with one token approximately equating to four characters in the English language.
+    </p>
+    <p>
+        The token concept involves more detailed ideas to understand how tokens are measured
+        in characters.
+        However, knowing the basics is enough to manage the costs of using the API.
+    </p>
+    <p>
+        Each request will consume three different quantities of tokens: your prompt, the rules of your prompt, and the AI response.
+        Summing these provides the total token cost of the request. Additionally, the total cost of each request can be determined;
+        the API response provides this value along with other information.
+    </p>
+    <p>
+        OpenAI has a very intuitive tool to measure tokens, called the 'Tokenizer', available at this link:
+        <a
+                href="https://platform.openai.com/tokenizer"
+                target="_blank"
+                rel="noopener noreferrer"
+        >
+            Open AI Tokenizer
+        </a>
+    <fieldset>
+        <img src="/AITutorialImages/tokenizer.png" alt="tokenizer image">
+    </fieldset>
+    <fieldset>
+        <img src="/AITutorialImages/token_Example.png" alt="example image">
+    </fieldset>
+    <p>
+        The cost per 1 million tokens for the model 'gpt-3.5-turbo-0125' is significantly lower than that of GPT-4, and it served me very well.
+        According to the OpenAI documentation (april, 2024), the costs per 1 million  tokens are:
+    <ul>
+        <li>gpt-3.5-turbo-0125: 0.50 dollars</li>
+        <li>GPT-4: 10 dollars</li>
+    </ul>
+    </p>
+</section>
+<hr>
+
+<section>
+    <h2>Getting Hands Dirty</h2>
+    <div class="feature">
+        <h3>Generate your API KEY</h3>
+        <p>
+            As any API you need to generate your secret key, in <a
+                href="https://platform.openai.com/api-keys"
+                target="_blank"
+                rel="noopener noreferrer"
+        >
+            OPEN AI official API
+        </a>
+        </p>
+        <fieldset>
+            <img src="/AITutorialImages/tutorialKey.png" alt="API KEY">
+        </fieldset>
+        <fieldset>
+            <img src="/AITutorialImages/CREATEKEY.png" alt="API KEY">
+        </fieldset>
+    </div>
+    <div class="feature">
+        <h3>Getting started</h3>
+        <p>
+            Set your API key as an environment variable; personally, I use a .env file
+            filled with all my API keys and database passwords.
+        </p>
+        <p>
+            NOTE: I'm using the MVC architecture, so I call the service in my controller. Controllers
+            declare routes, receive, and return data. Services do the work properly.
+        </p>
+
+        <div class="codeExample">
+            <p>Import and Configuring OPEN AI API (node.js)</p>
+            <pre><code>
+        import OpenAI from "openai";
+        import dotenv from 'dotenv';
+        dotenv.config();
+
+        const openai = new OpenAI({
+            apiKey: process.env.OPENAI_API_KEY || 'YOUR KEY WITHOUT PROTECTION'
+        });
+        </code></pre>
+            <p>
+                In this code, I have configured the OPEN AI API to recognize my key by
+                passing it as a parameter.
+            </p>
+        </div>
+
+        <div class="codeExample">
+            <p>Route Declaration (controller.ts)</p>
+            <pre><code>
+        router.get('/testCall', async (req, res) => {
+            try {
+                const response = await aiService.TestCall();
+                res.status(200).json(new CustomResponse(201, "Chamada Feita", response));
+            } catch (error) {
+                res.status(error.type || 500).json(new CustomResponse(error.type || 500, error.message, null));
+            }
+        });
+        </code></pre>
+            <p>
+                In this code, I created my GET route using Express and called the TestCall method
+                inside the aiService class.
+            </p>
+            <p>
+                Then, if everything goes well, I return my custom response, passing the response and other
+                information about the call.
+            </p>
+        </div>
+
+        <div class="codeExample">
+            <p>Making the Call (service.ts)</p>
+            <pre><code>
+        const AIpersonality = `You are an excellent history teacher who brings
+the past to life with your extensive knowledge and engaging storytelling.
+You not only provide answers to students' questions but also offer meaningful and
+helpful explanations, deepening their understanding of history. Your patience and
+respect towards students create a supportive and enriching learning environment.`;
+
+const UserQuestion = `Why United States joined in the Word War 2?`;
+
+export default class AiService {
+    async TestCall(){
+        const completion = await openai.chat.completions.create({
+            messages: [
+                {"role": "system", "content": AIpersonality},
+                {"role": "user", "content": UserQuestion}
+            ],
+            max_tokens: 1000,
+            temperature: 0.5,
+            model: "gpt-3.5-turbo-0125",
+        });
+        let costs  = completion.usage?.total_tokens;
+        const summary = completion.choices[0].message.content;
+
+        return {
+            summary: summary,
+            costs: costs
+        }
+    }
+}
+        </code></pre>
+            <p>
+                In the above code, <code>AIpersonality</code> and <code>UserQuestion</code> are
+                variables storing the system's personality and the user's query respectively.
+            </p>
+            <p>
+                The 'AIpersonality' defines the role of my call, essentially dictating how the AI will behave.
+                This is probably the most important part of the call because if you want to ask a highly specific
+                question that returns a JSON or specific data for consumption in your API, you need to define your
+                prompt accurately. Here, we must apply our knowledge of prompt engineering to obtain the best responses
+                and ensure the system performs exactly as needed. The real golden pot is here.
+            </p>
+            <p>
+                The 'UserQuestion' is self-explanatory;
+                it defines how the user will interact with your system.
+            </p>
+            <p>
+                The <code>TestCall</code> method in the <code>AiService</code> class uses these variables to create a conversation with the OpenAI model using the <code>chat.completions.create</code> method. The method returns a summary of the conversation and the total tokens used, which helps in tracking the usage costs.
+            </p>
+        </div>
+    </div>
+</section>
 </body>
 </html>
