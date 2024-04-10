@@ -36,7 +36,10 @@
             color: #555;
             font-weight: bold;
         }
-
+        code {
+            font-family: monospace;
+            font-size: 13px;
+        }
         img, video {
             max-width: 100%;
             height: auto;
@@ -51,7 +54,7 @@
 </head>
 <body>
 <header>
-    <h1>Online Class: Fullstack SaaS Project</h1>
+    <h1>How to Easily Integrate AI in your Backend</h1>
 </header>
 <section>
     <h2>Tutorial Overview</h2>
@@ -61,8 +64,9 @@
     <p>
         First things first, it's worth knowing that there are several ways
         to integrate your application with AI, including the Gemini API, OPEN AI API, and others.
-        However, I highly recommend using the OPEN AI API because it has the best LLM on the market. Although the costs
-        are slightly higher than those of Gemini and others, evaluate the best option for you and get to work.
+        However, I highly recommend using the OPEN AI API because it has the best LLM on the market.
+        In this tutorial, I will use Open AI's one, fell free to choose.
+        Although the costs are slightly higher than those of Gemini and others, evaluate the best option for you and get to work.
     </p>
 </section>
 <section>
@@ -110,7 +114,7 @@
 <hr>
 
 <section>
-    <h2>Getting Hands Dirty</h2>
+    <h2>Setting up</h2>
     <div class="feature">
         <h3>Generate your API KEY</h3>
         <p>
@@ -129,8 +133,11 @@
             <img src="/AITutorialImages/CREATEKEY.png" alt="API KEY">
         </fieldset>
     </div>
+<hr>
     <div class="feature">
-        <h3>Getting started</h3>
+        <h2>Getting Hands Dirty</h2>
+        <fieldset>
+            <h3>Route Declaration (controller.ts)</h3>
         <p>
             Set your API key as an environment variable; personally, I use a .env file
             filled with all my API keys and database passwords.
@@ -139,10 +146,9 @@
             NOTE: I'm using the MVC architecture, so I call the service in my controller. Controllers
             declare routes, receive, and return data. Services do the work properly.
         </p>
-
-        <div class="codeExample">
-            <p>Import and Configuring OPEN AI API (node.js)</p>
-            <pre><code>
+            <div class="codeExample">
+                <p>controller.ts <span style="font-size: 24px">&#8628;</span></p>
+                <pre><code>
         import OpenAI from "openai";
         import dotenv from 'dotenv';
         dotenv.config();
@@ -151,47 +157,65 @@
             apiKey: process.env.OPENAI_API_KEY || 'YOUR KEY WITHOUT PROTECTION'
         });
         </code></pre>
-            <p>
-                In this code, I have configured the OPEN AI API to recognize my key by
-                passing it as a parameter.
-            </p>
-        </div>
+                <ul>
+                    <li>
+                        In this code, I have configured the OPEN AI API to recognize my key by
+                        passing it as a parameter.
+                    </li>
+                </ul>
+            </div>
+            <div class="codeExample">
+                <p>controller.ts <span style="font-size: 24px">&#8628;</span></p>
+                <pre><code>
+        import OpenAI from "openai";
+        import dotenv from 'dotenv';
+        dotenv.config();
 
-        <div class="codeExample">
-            <p>Route Declaration (controller.ts)</p>
-            <pre><code>
+        const openai = new OpenAI({
+            apiKey: process.env.OPENAI_API_KEY || 'YOUR KEY WITHOUT PROTECTION'
+        });
+
         router.get('/testCall', async (req, res) => {
+            const { userQuestion } = req.body;
             try {
                 const response = await aiService.TestCall();
                 res.status(200).json(new CustomResponse(201, "Chamada Feita", response));
             } catch (error) {
-                res.status(error.type || 500).json(new CustomResponse(error.type || 500, error.message, null));
+                res.status(error.type || 500).json(new
+                    CustomResponse(error.type || 500, error.message, null));
             }
         });
         </code></pre>
-            <p>
-                In this code, I created my GET route using Express and called the TestCall method
-                inside the aiService class.
-            </p>
-            <p>
-                Then, if everything goes well, I return my custom response, passing the response and other
-                information about the call.
-            </p>
-        </div>
+                <ul>
+                    <li>
+                        In this code, I created my GET route using Express and called the TestCall method
+                        inside the aiService class.
+                    </li>
+                    <li>
+                        Then, if everything goes well, I return my custom response, passing the response and other
+                        information about the call.
+                    </li>
+                </ul>
+            </div>
+
+        </fieldset>
 
         <div class="codeExample">
-            <p>Making the Call (service.ts)</p>
-            <pre><code>
+            <fieldset>
+            <h3>Making the Call (service.ts)</h3>
+                <p>
+                    So now, all we need to do is create the conversation with the OpenAI model.
+                </p>
+                <p>service.ts <span style="font-size: 24px">&#8628;</span></p>
+                <pre><code>
         const AIpersonality = `You are an excellent history teacher who brings
 the past to life with your extensive knowledge and engaging storytelling.
 You not only provide answers to students' questions but also offer meaningful and
 helpful explanations, deepening their understanding of history. Your patience and
 respect towards students create a supportive and enriching learning environment.`;
 
-const UserQuestion = `Why United States joined in the Word War 2?`;
-
 export default class AiService {
-    async TestCall(){
+    async TestCall(UserQuestion: string){
         const completion = await openai.chat.completions.create({
             messages: [
                 {"role": "system", "content": AIpersonality},
@@ -209,26 +233,72 @@ export default class AiService {
             costs: costs
         }
     }
-}
         </code></pre>
-            <p>
-                In the above code, <code>AIpersonality</code> and <code>UserQuestion</code> are
-                variables storing the system's personality and the user's query respectively.
-            </p>
-            <p>
-                The 'AIpersonality' defines the role of my call, essentially dictating how the AI will behave.
-                This is probably the most important part of the call because if you want to ask a highly specific
-                question that returns a JSON or specific data for consumption in your API, you need to define your
-                prompt accurately. Here, we must apply our knowledge of prompt engineering to obtain the best responses
-                and ensure the system performs exactly as needed. The real golden pot is here.
-            </p>
-            <p>
-                The 'UserQuestion' is self-explanatory;
-                it defines how the user will interact with your system.
-            </p>
-            <p>
-                The <code>TestCall</code> method in the <code>AiService</code> class uses these variables to create a conversation with the OpenAI model using the <code>chat.completions.create</code> method. The method returns a summary of the conversation and the total tokens used, which helps in tracking the usage costs.
-            </p>
+                <ul>
+                    <li>
+                        <p>
+                            <code>AIpersonality variable:</code> Defines the role of my call, dictating how the AI will behave.
+                            This is a crucial part of the call because if you want to ask a highly specific
+                            question that returns JSON or specific data for your API, you need to define your
+                            prompt accurately. Applying our knowledge of prompt engineering is essential to obtain the best responses
+                            and ensure the system performs as needed. The real value lies here.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <code>UserQuestion variable:</code> This is self-explanatory;
+                            it defines how the user will interact with the system.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <code>TestCall(UserQuestion: string) method:</code> In this method, I create the conversation with the OpenAI API using the 'create'
+                            method. I will explain each parameter and what it defines in our request.
+                        </p>
+                        <code>parameters:</code>
+                        <p>
+                            <code>messages:</code> The 'system' role tells the API the type of role, defining the AI's behavior for your request.
+                            You can specify aspects like the response language, personality, format, and how to treat the user.
+                            Conversely, the 'user' role indicates the user's interaction, such as a question or data to process,
+                            essentially what the user needs at the moment.
+                        </p>
+                        <p>
+                            <code>max_tokens:</code> Limits the output length by specifying how many tokens the response should contain.
+                        </p>
+                        <p>
+                            <code>temperature:</code> Controls the randomness of the output. A lower temperature results in more
+                            deterministic and consistent responses, while a higher temperature allows for more creativity and variety
+                            in the responses. The choice depends on the type of task you have; per example, you need to summarize a transcript ?
+                            use a low temperature, as the AI does not need to create anything new, just summarize the existing content.
+                        </p>
+                        <p>
+                            <code>model:</code> Specifies the particular AI model to use. You can check the available models,
+                            which include more than just GPT-3.5 or GPT-4. Remember to check the cost per 1 million tokens;
+                            unless you need to perform a really complex or specific task, I highly recommend using GPT-3.5 instead of GPT-4, as the cost of GPT-4 is literally 20 times that of GPT-3.5.
+                        </p>
+                    </li>
+                </ul>
+            </fieldset>
+        </div>
+        <div class="feature">
+            <h2>Tests!</h2>
+            <video width="100%" height="100%" controls>
+                <source src="/AITutorialImages/test.mov" type="video/mp4">
+            </video>
+            <p>QUESTION: 'Why did the United States join World War 2?'</p>
+            <p>Response: 'Ah, a great question! The United States entered World War II for several reasons. One of
+                the main catalysts was the surprise attack on Pearl Harbor by the Japanese on December 7, 1941. This attack
+                resulted in the death of over 2,400 Americans and the destruction of much of the U.S.
+                Pacific Fleet.\n\nAdditionally, the United States had been providing significant aid to the Allied powers,
+                particularly Great Britain and the Soviet Union, through programs like Lend-Lease.
+                As the war progressed and Nazi Germany expanded its control in Europe, there was a
+                growing realization that the Axis powers posed a serious threat to global peace and stability.
+                \n\nPresident Franklin D. Roosevelt and many Americans believed that the country had a moral
+                obligation to stand up against the aggression and tyranny of the Axis powers. The attack on Pearl
+                Harbor solidified public opinion in favor of entering the war, and the United States officially
+                declared war on Japan the day after the attack.\n\nUltimately, the United States joined World War
+                II to defend democracy, protect its national interests, and support its allies in the fight against
+                fascism and tyranny.'</p>
         </div>
     </div>
 </section>
