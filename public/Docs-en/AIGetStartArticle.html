@@ -36,9 +36,11 @@
             color: #555;
             font-weight: bold;
         }
-        code {
-            font-family: monospace;
-            font-size: 13px;
+        pre {
+            height: 100%;
+            width: 90%;
+            white-space: pre-wrap;
+            word-break: break-word;
         }
         img, video {
             max-width: 100%;
@@ -149,14 +151,15 @@
             <div class="codeExample">
                 <p>controller.ts <span style="font-size: 24px">&#8628;</span></p>
                 <pre><code>
-        import OpenAI from "openai";
-        import dotenv from 'dotenv';
-        dotenv.config();
+import OpenAI from "openai";
+import dotenv from 'dotenv';
+dotenv.config();
 
-        const openai = new OpenAI({
-            apiKey: process.env.OPENAI_API_KEY || 'YOUR KEY WITHOUT PROTECTION'
-        });
-        </code></pre>
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY || 'YOUR KEY WITHOUT PROTECTION'
+});
+                </code></pre>
+
                 <ul>
                     <li>
                         In this code, I have configured the OPEN AI API to recognize my key by
@@ -167,25 +170,26 @@
             <div class="codeExample">
                 <p>controller.ts <span style="font-size: 24px">&#8628;</span></p>
                 <pre><code>
-        import OpenAI from "openai";
-        import dotenv from 'dotenv';
-        dotenv.config();
+import OpenAI from "openai";
+import dotenv from 'dotenv';
+dotenv.config();
 
-        const openai = new OpenAI({
-            apiKey: process.env.OPENAI_API_KEY || 'YOUR KEY WITHOUT PROTECTION'
-        });
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY || 'YOUR KEY WITHOUT PROTECTION'
+});
 
-        router.get('/testCall', async (req, res) => {
-            const { userQuestion } = req.body;
-            try {
-                const response = await aiService.TestCall();
-                res.status(200).json(new CustomResponse(201, "Chamada Feita", response));
-            } catch (error) {
-                res.status(error.type || 500).json(new
-                    CustomResponse(error.type || 500, error.message, null));
-            }
-        });
-        </code></pre>
+router.get('/testCall', async (req, res) => {
+    const { userQuestion } = req.body;
+    try {
+        const response = await aiService.TestCall();
+        res.status(200).json(new CustomResponse(201, "Chamada Feita", response));
+    } catch (error) {
+        res.status(error.type || 500).json(
+            new CustomResponse(error.type || 500, error.message, null)
+        );
+    }
+});
+</code></pre>
                 <ul>
                     <li>
                         In this code, I created my GET route using Express and called the TestCall method
@@ -208,14 +212,14 @@
                 </p>
                 <p>service.ts <span style="font-size: 24px">&#8628;</span></p>
                 <pre><code>
-        const AIpersonality = `You are an excellent history teacher who brings
+const AIpersonality = `You are an excellent history teacher who brings
 the past to life with your extensive knowledge and engaging storytelling.
 You not only provide answers to students' questions but also offer meaningful and
 helpful explanations, deepening their understanding of history. Your patience and
 respect towards students create a supportive and enriching learning environment.`;
 
 export default class AiService {
-    async TestCall(UserQuestion: string){
+    async TestCall(UserQuestion: string) {
         const completion = await openai.chat.completions.create({
             messages: [
                 {"role": "system", "content": AIpersonality},
@@ -225,15 +229,16 @@ export default class AiService {
             temperature: 0.5,
             model: "gpt-3.5-turbo-0125",
         });
-        let costs  = completion.usage?.total_tokens;
+        let costs = completion.usage?.total_tokens;
         const summary = completion.choices[0].message.content;
 
         return {
             summary: summary,
             costs: costs
-        }
+        };
     }
-        </code></pre>
+}
+</code></pre>
                 <ul>
                     <li>
                         <p>
