@@ -9,9 +9,9 @@ import Modal from "../components/modalToShowProject";
 
 const projects = [
   {
-    id: 2,
-    articleTitle: "Online Class: a Fullstack SaaS using AI (Project)",
-    filePath: "onlineClassArticle (Tutorial)",
+      id: 2,
+      articleTitle: "Online Class: a Fullstack SaaS using AI",
+      filePath: "onlineClassArticle",
   },
   {id:3, articleTitle: 'Getting started with AI integrations', filePath:'AIGetStartArticle'},
   //{id:4, articleTitle: 'Fake Progress Bar: A Tool for Increasing Video Watch Time', filePath:'progressBarArticle'}
