@@ -6,6 +6,7 @@ import "./style.css";
 import profilePic from "./img.png";
 import Footer from "../components/footer";
 import Modal from "../components/modalToShowProject";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const projects = [
   {
@@ -137,26 +138,7 @@ function AboutMe() {
   );
 }
 
-function LatestBlogPosts() {
-  return (
-    <Grid item md={7} className="window-body">
-      <Grid item md={5} sx={{ height: "25vh", pl: "20px" }}>
-        <fieldset>
-          <legend className="bold-legend">Latest Posts</legend>
-          {projects.map((project) => (
-            <Grid item key={project.id} sx={{ width: "100%", height: "70%" }}>
-              <div style={{ color: "#010081", marginBottom: "10px" }}>
-                <a href="" target="_blank" rel="noopener noreferrer">
-                  {project.articleTitle}
-                </a>
-              </div>
-            </Grid>
-          ))}
-        </fieldset>
-      </Grid>
-    </Grid>
-  );
-}
+
 
 function NavBar() {
   return (
@@ -288,9 +270,33 @@ function ProjectsView() {
     </Grid>
   );
 }
-
+function LatestBlogPosts() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    return (
+        <Grid item md={7} className="window-body">
+            <Grid item md={5} sx={{ height: "25vh", pl: "20px" }}>
+                <fieldset>
+                    <legend className="bold-legend">Latest Posts</legend>
+                    {projects.map((project) => (
+                        <Grid item key={project.id} sx={{ width: "100%", height: "70%" }}>
+                            <div style={{ color: "#010081", marginBottom: "10px" }}>
+                                <a href=""  onClick={() => navigate(`/projects`)}>
+                                    {project.articleTitle}
+                                </a>
+                            </div>
+                        </Grid>
+                    ))}
+                </fieldset>
+            </Grid>
+        </Grid>
+    );
+}
 function FakeDesktopBg() {
-  const [view, setView] = useState("AboutMe");
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [view, setView] = useState("AboutMe");
 
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
@@ -323,8 +329,9 @@ function FakeDesktopBg() {
             }
             alt="Projects Folder"
             style={{ width: "50px", height: "50px", cursor: "pointer" }}
-            onClick={() => setView("Projects")}
+            onClick={() => navigate(`/projects`)}
           />
+
           <subtitle style={{ color: "#fdffff", cursor: "pointer" }}>
             Projects
           </subtitle>
@@ -339,13 +346,12 @@ function FakeDesktopBg() {
               paddingTop: "8px",
               cursor: "pointer",
             }}
-            onClick={() => setView("AboutMe")}
           />
           <subtitle style={{ color: "#fdffff", cursor: "pointer" }}>
             About Me
           </subtitle>
         </div>
-        {view === "AboutMe" ? <AboutMeView /> : <ProjectsView />}
+        {<AboutMeView />}
       </Grid>
       <Footer />
     </div>
