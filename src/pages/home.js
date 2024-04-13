@@ -126,7 +126,7 @@ function AboutMe() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        paddingTop: isSmallScreen ? "25px" : "25%",
+        paddingTop: isSmallScreen ? "25px" : "55%",
         paddingBottom: "20px",
       }}
     >
@@ -162,16 +162,15 @@ function AboutMeView() {
       display={"flex"}
       alignItems={"center"}
       justifyContent={"center"}
-      sx={{ width: "100%", height: "70vh", mt: isSmallScreen ? "0%" : "20%", pt:'5%', pb:'3%' }}
+      sx={{ width: "100%", height: "70vh", pt: isSmallScreen ? '5%' : '50%', pb:'3%' }}
     >
       <Grid
         item
         className="window"
         sx={{
           width: isSmallScreen ? "100%" : "75%",
-          height: "100%",
+          height: isSmallScreen ? "67vh" : '50vh',
           overflowX: "scroll",
-          mt: isSmallScreen ? "0" : "10%",
         }}
       >
         <Grid
