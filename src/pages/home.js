@@ -6,7 +6,6 @@ import "./style.css";
 import profilePic from "./img.png";
 import Footer from "../components/footer";
 import Modal from "../components/modalToShowProject";
-import {useLocation, useNavigate} from "react-router-dom";
 
 const projects = [
   {
@@ -18,6 +17,18 @@ const projects = [
   //{id:4, articleTitle: 'Fake Progress Bar: A Tool for Increasing Video Watch Time', filePath:'progressBarArticle'}
 ];
 
+function NavBar({text}) {
+    return (
+        <Grid item md={12} className="title-bar">
+            <div className="title-bar-text">{text}</div>
+            <div className="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+            </div>
+        </Grid>
+    );
+}
 function ProfileInfo() {
   const isSmallScreen = useMediaQuery("(min-width: 700px)");
   return (
@@ -140,18 +151,7 @@ function AboutMe() {
 
 
 
-function NavBar() {
-  return (
-    <Grid item md={12} className="title-bar">
-      <div className="title-bar-text">Filipe Raposo - Profile</div>
-      <div className="title-bar-controls">
-        <button aria-label="Minimize"></button>
-        <button aria-label="Maximize"></button>
-        <button aria-label="Close"></button>
-      </div>
-    </Grid>
-  );
-}
+
 
 function AboutMeView() {
   const isSmallScreen = useMediaQuery("(min-width: 700px)");
@@ -162,7 +162,7 @@ function AboutMeView() {
       display={"flex"}
       alignItems={"center"}
       justifyContent={"center"}
-      sx={{ width: "100%", height: "70vh", mt: isSmallScreen ? "0" : "20%" }}
+      sx={{ width: "100%", height: "70vh", mt: isSmallScreen ? "0%" : "20%", pt:'5%', pb:'3%' }}
     >
       <Grid
         item
@@ -184,12 +184,11 @@ function AboutMeView() {
             zIndex: 0,
           }}
         >
-          <NavBar />
+          <NavBar text={'Filipe Raposo - Profile'} />
         </Grid>
         <Grid container className={"content"}>
           <ProfileInfo />
           <AboutMe />
-          <LatestBlogPosts />
         </Grid>
       </Grid>
     </Grid>
@@ -213,8 +212,8 @@ function ProjectsView() {
       md={7}
       sx={{
         width: isSmallScreen ? "100%" : "75%",
-        height: "55vh",
-        mt: isSmallScreen ? "0" : "15%",
+        height: "60vh",
+          mt: isSmallScreen ? "0%" : "40%", pt:'5%', pb:'3%'
       }}
     >
       <Grid
@@ -222,7 +221,7 @@ function ProjectsView() {
         className="window"
         sx={{ width: "100%", height: "100%", overflowY: "scroll" }}
       >
-        <NavBar />
+        <NavBar text={'Filipe Raposo - Profile'}/>
         <h4 style={{ paddingLeft: "15px" }}>Blog Posts</h4>
         <Grid
           container
@@ -270,33 +269,46 @@ function ProjectsView() {
     </Grid>
   );
 }
-function LatestBlogPosts() {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
+function LatestBlogPosts({ setView }) {
     return (
-        <Grid item md={7} className="window-body">
+        <Grid item md={7} className="window-body" onClick={() => setView("ProjectsView")}>
             <Grid item md={5} sx={{ height: "25vh", pl: "20px" }}>
-                <fieldset>
-                    <legend className="bold-legend">Latest Posts</legend>
+
+                <div className={'window'}>
+                    <Grid
+                        item
+                        md={12}
+                        className="title-bar"
+                        sx={{
+                            position: "sticky",
+                            top: -3,
+                            zIndex: 0,
+                        }}
+                    >
+                        <NavBar text={'Latest Articles'}/>
+                    </Grid>
+
                     {projects.map((project) => (
-                        <Grid item key={project.id} sx={{ width: "100%", height: "70%" }}>
-                            <div style={{ color: "#010081", marginBottom: "10px" }}>
-                                <a href=""  onClick={() => navigate(`/projects`)}>
+                        <Grid item key={project.id} sx={{ width: "100%", height: "70%" , padding: '5px'}}>
+
+                            <div style={{color: "#010081", marginBottom: "10px"}}>
+                                <a href="" onClick={(e) => e.preventDefault()} target="_blank"
+                                   rel="noopener noreferrer">
                                     {project.articleTitle}
                                 </a>
                             </div>
                         </Grid>
                     ))}
-                </fieldset>
+                </div>
             </Grid>
         </Grid>
     );
 }
-function FakeDesktopBg() {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const [view, setView] = useState("AboutMe");
+
+
+function FakeDesktopBg({viewPreference: boolean}) {
+
+  const [view, setView] = useState("AboutMe");
 
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
@@ -329,9 +341,8 @@ function FakeDesktopBg() {
             }
             alt="Projects Folder"
             style={{ width: "50px", height: "50px", cursor: "pointer" }}
-            onClick={() => navigate(`/projects`)}
+            onClick={() => setView("Projects")}
           />
-
           <subtitle style={{ color: "#fdffff", cursor: "pointer" }}>
             Projects
           </subtitle>
@@ -346,12 +357,14 @@ function FakeDesktopBg() {
               paddingTop: "8px",
               cursor: "pointer",
             }}
+            onClick={() => setView("AboutMe")}
           />
           <subtitle style={{ color: "#fdffff", cursor: "pointer" }}>
             About Me
           </subtitle>
         </div>
-        {<AboutMeView />}
+          {view === "AboutMe" ? <AboutMeView /> : <ProjectsView />}
+          <LatestBlogPosts setView={setView} />
       </Grid>
       <Footer />
     </div>
