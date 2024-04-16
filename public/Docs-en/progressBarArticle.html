@@ -2,10 +2,175 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <h1>Fodase?</h1>
+    <title>More Efficient Progress Bar for Advertisements</title>
+    <style>
+        body {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            color: #333;
+        }
+
+        h1, h2, h3, p, ul, ol {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-size: 28px;
+            color: #000;
+        }
+
+        h2 {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-size: 24px;
+            color: #333;
+        }
+
+        h3 {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-size: 20px;
+            color: #444;
+        }
+
+        p, ul, ol {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-size: 16px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px 0;
+        }
+
+        .feature {
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 <body>
 
+<h1>More Efficient Progress Bar for Advertisements</h1>
+
+<p>A simple project, but one that highlights the importance of mathematics in programming, combining mathematics, marketing, and of course, programming.</p>
+
+<div class="center">
+    <img src="../fakeBarImages/gif.gif" alt="Alternative text for image" width="600">
+</div>
+
+<h2>Purpose</h2>
+<ul>
+    <li>To create the effect that the progress bar is moving faster than normal at the beginning (giving a false impression to the viewer that the video is short) and slower as it approaches the end.</li>
+    <li>This effect significantly increases the "watch time" of the video; this small feature can increase the conversion rate and profit margin of the page if the video being displayed is a sales video.</li>
+    <li>To demonstrate the importance of mathematics as an indispensable tool for programmers.</li>
+</ul>
+
+<h2>Understanding the Logic of Traditional Progression</h2>
+<p>We know that a traditional progression bar (like the red one on YouTube) is given by the ratio (P = Progression, all in seconds):</p>
+<pre>P = Current moment / total video duration</pre>
+<p>Note that the value of P will always be between 0.0 and 1.0, as the "Current moment" will always be less than the total duration, but always greater than 0.</p>
+<p>The value of the "Current moment" is updated every millisecond. Therefore, the variable P is constantly updated, creating the sensation of continuous growth, similar to a loading bar.</p>
+<pre>
+P/ Current Moment = 0  | P = 0 , so the video has not yet started
+P/ Current Moment = 15 | P = 0.25, so 25% of the video has passed
+P/ Current Moment = 30 | P = 0.5, so 50% of the video has passed
+P/ Current Moment = 60 | P = 1, so the video has ended
+</pre>
+
+<h2>Mathematical Logic Behind the Problem</h2>
+<p>We need to think about the calculations in terms of P, as this is the value that will be updated all the time, remembering that 0 < P < 1.</p>
+<ul>
+    <li>My function will define the speed at which P grows.</li>
+    <li>But for our bar to work, the function needs to respect the following rules:</li>
+</ul>
+<pre>
+When P = 0, f(p) = 0
+When P = 1, f(p) = 1
+The curve's inclination needs to start more steeply and end more gently
+</pre>
+<p>I thought about using a quadratic function, you can also use an exponential function, but I think it's much easier to use a quadratic function in JavaScript.</p>
+
+<div class="center">
+    <img src="../fakeBarImages/krl.png" alt="Alternative text for image" width="600">
+</div>
+
+<h2>Creating the Player</h2>
+<p>In the code snippet below, I simply take the player div and set up the page to display the video. For more details, consult the documentation of React Player, which was the library I used in this project.</p>
+<pre><code>
+&lt;div className="playerWrapper"&gt;
+    &lt;ReactPlayer
+        playing
+        onDuration={(d) =&gt; setDuration(d)}
+        progressInterval={100}
+        onProgress={(p) =&gt; {
+            setPlayed(p.playedSeconds);
+            setLoaded(p.loadedSeconds);
+        }}
+        config={{
+            youtube: {
+                playerVars: { showinfo: 1 },
+            },
+        }}
+        url="https://www.youtube.com/watch?v=YLslsZuEaNE"
+        controls={true} // Add this line to display controls, including the volume bar
+    /&gt;
+&lt;/div&gt;
+</code></pre>
+
+<h2>Inserting the Modified Progress Bar</h2>
+<p>As mentioned earlier, the progress bar can be made by dividing the current moment of the video by the total duration of the same. I am calling a function that will be explained below and passing a number between 0 and 1 that represents how much of the video has been consumed. This function is called thousands of times in a single minute, creating the effect of a progressing bar.</p>
+<pre><code>
+&lt;ProgressBar progress={barra_de_progressao(played / duration)}&gt;
+    &lt;div /&gt;
+&lt;/ProgressBar&gt;
+</code></pre>
+
+<h2>The Function</h2>
+<p>The function is given by</p>
+<pre><code>
+function barra_de_progressao(x) {
+  return -(x * x) + (2 * x);
+}
+</code></pre>
+
+<h2>Summary</h2>
+<p>It's amazing how this problem can be complex enough to require knowledge in different areas to be solved.
+    Yet, its application is based on a function of just one line.</p>
+<p>
+    Basically, if you define the value of P to behave the equation -(x * x) + (2 * x); in other words,
+    ProgressBarPercentage = - (currentMoment * currentMoment) + (2 * currentMoment);
+    As I already Explained, the 'ProgressBar' will always be between a value 0 and 1, such that this value
+     represents the size of progress bar.
+<p>
+For 'currentValues' between 0 and 1, the P value will grow as the curve inside the red square.
+</p>
+<div class="center">
+    <img src="../fakeBarImages/curve.png" alt="Alternative text for image" width="600">
+</div>
+<h3>Progress Bar Value (P) will be always:</h3>
+    <ul>
+    <li>
+        Between 0 and 1
+    </li>
+    <li>
+        The growing of P will be faster at the beginning and slightly become slower.
+    </li>
+    <li>
+        Must work with any video duration because it behaves as a linear function.
+    </li>
+</ul>
+<div>
+<a
+        href="https://github.com/Filipemrr/Fake-progressBar"
+        target="_blank"
+        rel="noopener noreferrer"
+>
+    <h3 style="color: blue">Source Code</h3>
+
+</a>
+</div>
+</p>
 </body>
 </html>

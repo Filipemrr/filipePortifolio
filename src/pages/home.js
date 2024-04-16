@@ -14,7 +14,7 @@ const projects = [
       filePath: "onlineClassArticle",
   },
   {id:3, articleTitle: 'Getting started with AI integrations', filePath:'AIGetStartArticle'},
-  //{id:4, articleTitle: 'Fake Progress Bar: A Tool for Increasing Video Watch Time', filePath:'progressBarArticle'}
+  {id:4, articleTitle: 'Fake Progress Bar: A Tool for Increasing Video Watch Time', filePath:'progressBarArticle'}
 ];
 
 function NavBar({text}) {
