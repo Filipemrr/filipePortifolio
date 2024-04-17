@@ -6,15 +6,17 @@ import "./style.css";
 import profilePic from "./img.png";
 import Footer from "../components/footer";
 import Modal from "../components/modalToShowProject";
+import Draggable from 'react-draggable';  // Importando Draggable
+
 
 const projects = [
-  {
-      id: 2,
-      articleTitle: "Online Class: a Fullstack SaaS using AI",
-      filePath: "onlineClassArticle",
-  },
-  {id:3, articleTitle: 'Getting started with AI integrations', filePath:'AIGetStartArticle'},
-  {id:4, articleTitle: 'Fake Progress Bar: A Tool for Increasing Video Watch Time', filePath:'progressBarArticle'}
+    {
+        id: 2,
+        articleTitle: "Online Class: a Fullstack SaaS using AI",
+        filePath: "onlineClassArticle",
+    },
+    {id:3, articleTitle: 'Getting started with AI integrations', filePath:'AIGetStartArticle'},
+    {id:4, articleTitle: 'Simulated Loading Bars: Enhancing User Experience or Ethical Dilemma?', filePath:'progressBarArticle'}
 ];
 
 function NavBar({text}) {
@@ -30,79 +32,79 @@ function NavBar({text}) {
     );
 }
 function ProfileInfo() {
-  const isSmallScreen = useMediaQuery("(min-width: 700px)");
-  return (
-    <Grid
-      item
-      md={3.5}
-      xs={12}
-      className="window-body"
-      sx={{ height: "25vh", pl: isSmallScreen ? "0" : "9%" }}
-    >
-      <Grid
-        item
-        md={12}
-        xs={5}
-        sx={{
-          height: isSmallScreen ? "20vh" : "15vh",
-          padding: isSmallScreen ? "20px" : "20px 0px 20px 0px",
-        }}
-      >
-        <fieldset className="fieldSet-profilePic">
-          <img
-            src={profilePic}
-            alt="Profile Pic"
-            style={{
-              width: isSmallScreen ? "100%" : "100%",
-              height: isSmallScreen ? "100%" : "100%",
-              display: "block",
-            }}
-          />
-        </fieldset>
-      </Grid>
-      <Grid item md={3} xs={10} sx={{ pl: isSmallScreen ? "20px" : "0px" }}>
-          <fieldset>
-              <legend className="bold-legend">Backend Developer</legend>
-              <p>
-                  <strong>Name: </strong> Filipe Raposo
-              </p>
-              <p>
-                  <strong>Contact me: </strong>
-              </p>
-              <div style={{color: "#010081", marginBottom: "10px"}}>
-                  <a
-                      href="https://www.linkedin.com/in/filipe-raposo-a28735256/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                  >
-                      Linkedln
-                  </a>
-              </div>
-              <div style={{color: "#010081", marginBottom: "10px"}}>
-                  <a
-                      href="mailto:contact.filipemr@gmail.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                  >
-                      contact.filipemr@gmail.com
-                  </a>
-              </div>
-              <p>
-                  <strong>Projects: </strong>
-              </p>
-              <div style={{color: "#010081", marginBottom: "10px"}}>
-                  <a
-                      href="https://github.com/Filipemrr"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                  >
-                      Github
-                  </a>
-              </div>
-          </fieldset>
-      </Grid>
-    </Grid>
-  );
+    const isSmallScreen = useMediaQuery("(min-width: 700px)");
+    return (
+        <Grid
+            item
+            md={3.5}
+            xs={12}
+            className="window-body"
+            sx={{ height: "25vh", pl: isSmallScreen ? "0" : "9%" }}
+        >
+            <Grid
+                item
+                md={12}
+                xs={5}
+                sx={{
+                    height: isSmallScreen ? "20vh" : "15vh",
+                    padding: isSmallScreen ? "20px" : "20px 0px 20px 0px",
+                }}
+            >
+                <fieldset className="fieldSet-profilePic">
+                    <img
+                        src={profilePic}
+                        alt="Profile Pic"
+                        style={{
+                            width: isSmallScreen ? "100%" : "100%",
+                            height: isSmallScreen ? "100%" : "100%",
+                            display: "block",
+                        }}
+                    />
+                </fieldset>
+            </Grid>
+            <Grid item md={3} xs={10} sx={{ pl: isSmallScreen ? "20px" : "0px" }}>
+                <fieldset>
+                    <legend className="bold-legend">Backend Developer</legend>
+                    <p>
+                        <strong>Name: </strong> Filipe Raposo
+                    </p>
+                    <p>
+                        <strong>Contact me: </strong>
+                    </p>
+                    <div style={{color: "#010081", marginBottom: "10px"}}>
+                        <a
+                            href="https://www.linkedin.com/in/filipe-raposo-a28735256/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Linkedln
+                        </a>
+                    </div>
+                    <div style={{color: "#010081", marginBottom: "10px"}}>
+                        <a
+                            href="mailto:contact.filipemr@gmail.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            contact.filipemr@gmail.com
+                        </a>
+                    </div>
+                    <p>
+                        <strong>Projects: </strong>
+                    </p>
+                    <div style={{color: "#010081", marginBottom: "10px"}}>
+                        <a
+                            href="https://github.com/Filipemrr"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Github
+                        </a>
+                    </div>
+                </fieldset>
+            </Grid>
+        </Grid>
+    );
 }
 
 function AboutMe() {
@@ -119,34 +121,34 @@ function AboutMe() {
         </p>
     ));
     return (
-    <Grid
-      item
-      md={7}
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        paddingTop: isSmallScreen ? "25px" : "55%",
-        paddingBottom: "20px",
-      }}
-    >
-      <fieldset
-        className="aboutMe-fieldSet"
-        style={{
-          fontSize: "18px",
-          overflowY: "scroll",
-          maxHeight: "500px",
-          maxWidth: isSmallScreen ? "100%" : "75%",
-          textAlign: "left",
-          margin: "0 auto",
-          padding: "2px 15px",
-        }}
-      >
-        <legend className="bold-legend">About Me</legend>
-        {lines}
-      </fieldset>
-    </Grid>
-  );
+        <Grid
+            item
+            md={7}
+            sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                paddingTop: isSmallScreen ? "25px" : "55%",
+                paddingBottom: "20px",
+            }}
+        >
+            <fieldset
+                className="aboutMe-fieldSet"
+                style={{
+                    fontSize: "18px",
+                    overflowY: "scroll",
+                    maxHeight: "500px",
+                    maxWidth: isSmallScreen ? "100%" : "75%",
+                    textAlign: "left",
+                    margin: "0 auto",
+                    padding: "2px 15px",
+                }}
+            >
+                <legend className="bold-legend">About Me</legend>
+                {lines}
+            </fieldset>
+        </Grid>
+    );
 }
 
 
@@ -154,125 +156,126 @@ function AboutMe() {
 
 
 function AboutMeView() {
-  const isSmallScreen = useMediaQuery("(min-width: 700px)");
-  return (
-    <Grid
-      item
-      md={7}
-      display={"flex"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      sx={{ width: "100%", height: "70vh", pt: isSmallScreen ? '5%' : '50%', pb:'3%' }}
-    >
-      <Grid
-        item
-        className="window"
-        sx={{
-          width: isSmallScreen ? "100%" : "75%",
-          height: isSmallScreen ? "67vh" : '50vh',
-          overflowX: "scroll",
-        }}
-      >
+    const isSmallScreen = useMediaQuery("(min-width: 700px)");
+    return (
         <Grid
-          item
-          md={12}
-          className="title-bar"
-          sx={{
-            position: "sticky",
-            top: -3,
-            zIndex: 0,
-          }}
+            item
+            md={7}
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            sx={{ width: "100%", height: "70vh" , pt: isSmallScreen ? '5%' : '50%', pb:'3%' }}
         >
-          <NavBar text={'Filipe Raposo - Profile'} />
+            <Grid
+                item
+                className="window"
+                sx={{
+                    width: isSmallScreen ? "100%" : "75%",
+                    height: isSmallScreen ? "67vh" : '70vh',
+                    overflowX: "scroll",
+                }}
+            >
+                <Grid
+                    item
+                    md={12}
+                    className="title-bar"
+                    sx={{
+                        position: "sticky",
+                        top: -3,
+                        zIndex: 0,
+                    }}
+                >
+                    <NavBar text={'Filipe Raposo - Profile'} />
+                </Grid>
+                <Grid container className={"content"}>
+                    <ProfileInfo />
+                    <AboutMe />
+                </Grid>
+            </Grid>
         </Grid>
-        <Grid container className={"content"}>
-          <ProfileInfo />
-          <AboutMe />
-        </Grid>
-      </Grid>
-    </Grid>
-  );
+    );
 }
 function ProjectsView() {
-  const isSmallScreen = useMediaQuery("(min-width: 700px)");
-  const [activeProject, setActiveProject] = useState(null);
+    const isSmallScreen = useMediaQuery("(min-width: 700px)");
+    const [activeProject, setActiveProject] = useState(null);
 
-  const openModal = (project) => {
-    setActiveProject(project);
-  };
+    const openModal = (project) => {
+        setActiveProject(project);
+    };
 
-  const closeModal = () => {
-    setActiveProject(null);
-  };
+    const closeModal = () => {
+        setActiveProject(null);
+    };
 
-  return (
-    <Grid
-      item
-      md={7}
-      sx={{
-        width: isSmallScreen ? "100%" : "75%",
-        height: "60vh",
-          mt: isSmallScreen ? "0%" : "40%", pt:'5%', pb:'3%'
-      }}
-    >
-      <Grid
-        item
-        className="window"
-        sx={{ width: "100%", height: "100%", overflowY: "scroll" }}
-      >
-        <NavBar text={'Filipe Raposo - Profile'}/>
-        <h4 style={{ paddingLeft: "15px" }}>Blog Posts</h4>
+    return (
         <Grid
-          container
-          direction="column"
-          className={"projects-table"}
-          sx={{ alignItems: "center" }}
+            item
+            md={7}
+            sx={{
+                width: isSmallScreen ? "100%" : "75%",
+                height: "60vh",
+                mt: isSmallScreen ? "0%" : "40%", pt:'5%', pb:'3%'
+            }}
         >
-          {projects.map((project) => (
-            <Grid item sx={{ width: "80%" }} key={project.id}>
-              <button
-                onClick={() => openModal(project)}
-                style={{
-                  width: "100%",
-                  height: "50px",
-                  marginBottom: 0,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  cursor: "pointer",
-                }}
-              >
-                <p
-                  style={{
-                    fontWeight: "bold",
-                    fontFamily: "'MS Sans Serif', 'Arial', sans-serif",
-                    fontSize: "13px",
-                  }}
+            <Grid
+                item
+                className="window"
+                sx={{ width: "100%", height: "100%", overflowY: "scroll" }}
+            >
+                <NavBar text={'Filipe Raposo - Profile'}/>
+                <h4 style={{ paddingLeft: "15px" }}>Blog Posts</h4>
+                <Grid
+                    container
+                    direction="column"
+                    className={"projects-table"}
+                    sx={{ alignItems: "center" }}
                 >
-                  {project.articleTitle}
-                </p>
-                <span style={{ fontSize: "24px" }}>&rarr;</span>
-              </button>
+                    {projects.map((project) => (
+                        <Grid item sx={{ width: "80%" }} key={project.id}>
+                            <button
+                                onClick={() => openModal(project)}
+                                style={{
+                                    width: "100%",
+                                    height: "50px",
+                                    marginBottom: 0,
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                <p
+                                    style={{
+                                        fontWeight: "bold",
+                                        fontFamily: "'MS Sans Serif', 'Arial', sans-serif",
+                                        fontSize: "13px",
+                                    }}
+                                >
+                                    {project.articleTitle}
+                                </p>
+                                <span style={{ fontSize: "24px" }}>&rarr;</span>
+                            </button>
+                        </Grid>
+                    ))}
+                </Grid>
             </Grid>
-          ))}
+            <Modal
+                isOpen={activeProject !== null}
+                onClose={closeModal}
+                filePath={activeProject?.filePath}
+            >
+                <h2>{activeProject?.articleTitle}</h2>
+                <p>Details about the project...</p>
+            </Modal>
         </Grid>
-      </Grid>
-      <Modal
-        isOpen={activeProject !== null}
-        onClose={closeModal}
-        filePath={activeProject?.filePath}
-      >
-        <h2>{activeProject?.articleTitle}</h2>
-        <p>Details about the project...</p>
-      </Modal>
-    </Grid>
-  );
+    );
 }
 function LatestBlogPosts({ setView }) {
+    const isSmallScreen = useMediaQuery("(min-width: 700px)");
     return (
-        <Grid item md={7} className="window-body" onClick={() => setView("ProjectsView")}>
-            <Grid item md={5} sx={{ height: "25vh", pl: "20px" }}>
-
+        <Draggable defaultPosition={{x: isSmallScreen ? -30 : 40, y: isSmallScreen ? -40 : -750}}>
+        <Grid item xs={9} md={7} className="window-body" >
+            <Grid item md={5} sx={{ height: "5vh", pl: "20px" }}>
                 <div className={'window'}>
                     <Grid
                         item
@@ -290,7 +293,7 @@ function LatestBlogPosts({ setView }) {
                     {projects.map((project) => (
                         <Grid item key={project.id} sx={{ width: "100%", height: "70%" , padding: '5px'}}>
 
-                            <div style={{color: "#010081", marginBottom: "10px"}}>
+                            <div style={{color: "#010081", marginBottom: "10px"}} onClick={() => setView("ProjectsView")}>
                                 <a href="" onClick={(e) => e.preventDefault()} target="_blank"
                                    rel="noopener noreferrer">
                                     {project.articleTitle}
@@ -301,81 +304,82 @@ function LatestBlogPosts({ setView }) {
                 </div>
             </Grid>
         </Grid>
+    </Draggable>
     );
 }
 
 
 function FakeDesktopBg({viewPreference: boolean}) {
 
-  const [view, setView] = useState("AboutMe");
-
-  return (
-    <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
-      <Grid
-        container
-        md={12}
-        display={"flex"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        sx={{
-          position: "relative",
-          flexGrow: 1,
-          backgroundColor: "#008080",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "20px",
-          }}
-        >
-          <img
-            src={
-              "https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs_small-4.png"
-            }
-            alt="Projects Folder"
-            style={{ width: "50px", height: "50px", cursor: "pointer" }}
-            onClick={() => setView("Projects")}
-          />
-          <subtitle style={{ color: "#fdffff", cursor: "pointer" }}>
-            Projects
-          </subtitle>
-          <img
-            src={
-              "https://win98icons.alexmeub.com/icons/png/write_wordpad-1.png"
-            }
-            alt="About Me Folder"
-            style={{
-              width: "40px",
-              height: "40px",
-              paddingTop: "8px",
-              cursor: "pointer",
-            }}
-            onClick={() => setView("AboutMe")}
-          />
-          <subtitle style={{ color: "#fdffff", cursor: "pointer" }}>
-            About Me
-          </subtitle>
+    const [view, setView] = useState("AboutMe");
+    const isSmallScreen = useMediaQuery("(min-width: 700px)");
+    return (
+        <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+            <Grid
+                container
+                md={12}
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                sx={{
+                    position: "relative",
+                    flexGrow: 1,
+                    backgroundColor: "#008080",
+                }}
+            >
+                <div
+                    style={{
+                        position: "absolute",
+                        left: 0,
+                        top: 0,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        padding: "20px",
+                    }}
+                >
+                    <img
+                        src={
+                            "https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs_small-4.png"
+                        }
+                        alt="Projects Folder"
+                        style={{ width: "50px", height: "50px", cursor: "pointer" }}
+                        onClick={() => setView("Projects")}
+                    />
+                    <subtitle style={{ color: "#fdffff", cursor: "pointer" }}>
+                        Projects
+                    </subtitle>
+                    <img
+                        src={
+                            "https://win98icons.alexmeub.com/icons/png/write_wordpad-1.png"
+                        }
+                        alt="About Me Folder"
+                        style={{
+                            width: "40px",
+                            height: "40px",
+                            paddingTop: "8px",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => setView("AboutMe")}
+                    />
+                    <subtitle style={{ color: "#fdffff", cursor: "pointer" }}>
+                        About Me
+                    </subtitle>
+                </div>
+                {view === "AboutMe" ? <AboutMeView /> : <ProjectsView />}
+                { isSmallScreen ? <LatestBlogPosts setView={setView} /> : <p></p>}
+            </Grid>
+            <Footer />
         </div>
-          {view === "AboutMe" ? <AboutMeView /> : <ProjectsView />}
-          <LatestBlogPosts setView={setView} />
-      </Grid>
-      <Footer />
-    </div>
-  );
+    );
 }
 
 function Home() {
-  return (
-    <FakeDesktopBg>
-      <Footer />
-    </FakeDesktopBg>
-  );
+    return (
+        <FakeDesktopBg>
+            <Footer />
+        </FakeDesktopBg>
+    );
 }
 
 export default Home;
