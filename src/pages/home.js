@@ -291,9 +291,9 @@ function LatestBlogPosts({ setView }) {
                     </Grid>
 
                     {projects.map((project) => (
-                        <Grid item key={project.id} sx={{ width: "100%", height: "70%" , padding: '5px'}}>
+                        <Grid item key={project.id} sx={{ width: "100%", height: "70%" , padding: '5px'}} onClick={() => setView("ProjectsView")}>
 
-                            <div style={{color: "#010081", marginBottom: "10px"}} onClick={() => setView("ProjectsView")}>
+                            <div style={{color: "#010081", marginBottom: "10px"}}>
                                 <a href="" onClick={(e) => e.preventDefault()} target="_blank"
                                    rel="noopener noreferrer">
                                     {project.articleTitle}
